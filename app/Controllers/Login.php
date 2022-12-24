@@ -30,12 +30,12 @@ class Login extends BaseController
     //check username password function
     public function login_check($value='')
     {
-        $db_user = 'admin';
+        $db_user = 'admin@gmail.com';
         $db_pass = '123456';
-        $username = $this->request->getVar('username') ?? '';
+        $email = $this->request->getVar('email') ?? '';
         $password = $this->request->getVar('password') ?? '';
 
-        if ($username == $db_user && $db_pass == $password) {
+        if ($email == $db_user && $db_pass == $password) {
             $this->_session->set('user', ['login' => true]);
             return redirect()->route('home.dashboard');
         }else{
