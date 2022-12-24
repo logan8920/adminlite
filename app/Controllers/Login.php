@@ -12,6 +12,8 @@ class Login extends BaseController
     //load helper models session
     public function __construct(){
 
+        helper(['site','form','url']);
+        check_login();
         $this->_session = session();
 
     }
@@ -19,6 +21,25 @@ class Login extends BaseController
     //load login page
     public function index()
     {
+        if ($this->request->getMethod() == 'post') {
+            return $this->login_check();
+        }
         return view('login');
+    }
+
+    //check username password function
+    public function login_check($value='')
+    {
+        $db_user = 'admin';
+        $db_pass = '123456';
+        $username = $this->request->getVar('username') ?? '';
+        $password = $this->request->getVar('password') ?? '';
+
+        if ($username == $db_user && $db_pass == $password) {
+            $this->_session->set('user', ['login' => true]);
+            return redirect()->route('home.dashboard');
+        }else{
+            return redirect()->route('admin.login')->with('invalid_pass', true);
+        }
     }
 }
