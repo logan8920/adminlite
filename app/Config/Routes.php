@@ -39,6 +39,18 @@ $routes->get('/', 'Home::index', ['as' => 'home.dashboard']);
 $routes->get('login', 'Login::index', ['as' => 'admin.login']);
 $routes->post('login', 'Login::index', ['as' => 'admin.login.post']);
 $routes->get('dashboard', 'Home::index');
+$routes->get('my', 'Home::my', ['as' => 'show.my']);
+$routes->get('new', 'Home::new', ['as' => 'show.buy.new']);
+$routes->get('signup', 'Signup::index',['as' => 'signup.get']);
+$routes->post('signup', 'Signup::index',['as' => 'signup.post']);
+
+
+
+
+
+
+
+
 
 /*
  * --------------------------------------------------------------------

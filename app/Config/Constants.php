@@ -42,6 +42,18 @@ defined('MONTH')  || define('MONTH', 2_592_000);
 defined('YEAR')   || define('YEAR', 31_536_000);
 defined('DECADE') || define('DECADE', 315_360_000);
 
+
+// manual defined constant
+
+define('SITENAME', 'Content CRM');
+define('semrush', 'https://d1myhw8pp24x4f.cloudfront.net/company_logo/1620997131_Avatars.png');
+define('jasper', 'https://bookface-images.s3.amazonaws.com/small_logos/18b90074b86630e3f25f2673c29d94e8c03c9018.png');
+define('moz', 'https://www.logolynx.com/images/logolynx/5e/5e1c0d0aec0f5af51d32e8484132a37e.png');
+
+define('add_fund_url', 'http://wa.me/+923094432002?text=hay%20i%20want%20add%20fund%20in%20my%20account');
+
+
+//++++++++++++++++++++++++++++++++++
 /*
  | --------------------------------------------------------------------------
  | Exit Status Codes

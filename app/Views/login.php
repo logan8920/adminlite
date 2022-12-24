@@ -6,15 +6,24 @@
 	<div class="login-box">
    <div class="card card-outline card-primary">
       <div class="card-header text-center">
-         <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+         <p class="h1"><b><?= SITENAME ?></b></p>
+         
       </div>
       <div class="card-body">
          <p class="login-box-msg">Sign in to start your session</p>
          <?php 
 	  		$invalid_pass = \Config\Services::session()->getFlashdata('invalid_pass');
 	  		if ($invalid_pass) 
-	  			echo '<p class="text-danger">Please enter valid username and password</p>'		
-	  	
+	  			echo '<p class="text-danger">Please enter valid username and password</p>';
+
+         $success = \Config\Services::session()->getFlashdata('success');
+         if ($success) 
+            echo '<p class="text-success">Successfully Registered! Please Login.</p>';
+	  	   $block = \Config\Services::session()->getFlashdata('block');
+         if ($block) 
+            echo '<p class="text-danger">Account Blocked! Please contact Admin.</p>'     
+      
+
 	  	?>
         <?php echo form_open(route_to('admin.login.post'), ['method' => 'post']); ?>
 				<?php echo csrf_field() ?>
@@ -40,7 +49,8 @@
                </div>
             </div>
            <?php echo form_close(); ?>
-        
+        <br>
+        <a href="<?= base_url().route_to('signup.get') ?>" class="text-center">Register a new Account?</a>
       </div>
    </div>
 </div>

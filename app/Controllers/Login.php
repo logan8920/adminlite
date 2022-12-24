@@ -3,18 +3,21 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\UserModel;
 
 class Login extends BaseController
 {
 
     public $_session;
+    public $_userObj;
 
     //load helper models session
     public function __construct(){
 
         helper(['site','form','url']);
-        check_login();
+        $this->_userObj = new UserModel();
         $this->_session = session();
+        check_login();
 
     }
 
@@ -30,16 +33,38 @@ class Login extends BaseController
     //check username password function
     public function login_check($value='')
     {
-        $db_user = 'admin@gmail.com';
-        $db_pass = '123456';
-        $email = $this->request->getVar('email') ?? '';
-        $password = $this->request->getVar('password') ?? '';
+        $rules = [
+                        'email' => 'required|valid_email',
+                        'password' => 'required'
+                 ];
 
-        if ($email == $db_user && $db_pass == $password) {
-            $this->_session->set('user', ['login' => true]);
+        $error = [
+                        'email' => ['required' => 'This Field is required.'],
+                        'password' => ['required' => 'This Field is required.']
+                 ];
+
+        if ($this->validate($rules,$error)) {
+
+            $email = strip_tags($this->request->getVar('email'));
+            $password = strip_tags($this->request->getVar('password'));
+
+            $res = $this->_userObj->where('email',$email)->where('password',$password)->first();
+
+            if (! $res) 
+                return redirect()->route('admin.login')->with('invalid_pass',true);
+
+            $status = ($res['status'] == 1) ? true : false;
+
+            if ($status)
+                return redirect()->route('admin.login')->with('block',true);
+
+
+            $this->_session->set('user', ['login' => true, 'useremail' => $res['email'],'name' => $res['name'],'user_id' => $res['id']]);
             return redirect()->route('home.dashboard');
-        }else{
-            return redirect()->route('admin.login')->with('invalid_pass', true);
+
+
+        
         }
+        
     }
 }
