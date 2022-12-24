@@ -52,7 +52,6 @@ $routes->post('signup', 'Signup::index',['as' => 'signup.post']);
 
 
 
-
 /*
  * --------------------------------------------------------------------
  * Additional Routing

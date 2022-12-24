@@ -33,4 +33,6 @@ class Home extends BaseController
         return view('user_acc',$data);
     }
 
+    
+
 }
