@@ -53,7 +53,7 @@ $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email )
           </li>
           
           <li class="nav-item">
-            <a href="<?= base_url().route_to('show.buy.new') ?>" class="nav-link">
+            <a href="<?= base_url().route_to('account.buy.list') ?>" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Buy New

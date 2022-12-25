@@ -33,6 +33,23 @@ class Home extends BaseController
         return view('user_acc',$data);
     }
 
+     // demo page froont end of add product pages
+    public function demo()
+    {
+        $data['page_title'] = 'My Accounts';
+        $data['acc_table'] = $this->_accountsObj->where('user_id',$this->_session->user['user_id'] ?? '')->findAll() ?? [];
+        return view('demo',$data);
+    }
+
+     //code of list product to buy
+    public function buy_list()
+    {
+        $data['page_title'] = 'My Accounts';
+        $data['acc_table'] = $this->_accountsObj->where('user_id',$this->_session->user['user_id'] ?? '')->findAll() ?? [];
+        return view('buy_list',$data);
+    }
+
+
     
 
 }
