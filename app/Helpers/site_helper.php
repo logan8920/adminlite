@@ -22,6 +22,27 @@ if (! function_exists('check_logout')) {
 	}
 }
 
+//admin check login function
+if (! function_exists('check_admin_login')) {
+	function check_admin_login(){
+		$session = \Config\Services::session();
+		if (isset($session->user['login']) && $session->user['login'] == true) {
+			page_redirect(route_to('admin.dashboard'));
+		}
+	}
+}
+
+
+//admin check logout function
+if (! function_exists('check_admin_logout')) {
+	function check_admin_logout(){
+		$session = \Config\Services::session();
+		if (!isset($session->user['login'])) {
+			page_redirect(route_to('admin.log.get'));
+		}
+	}
+}
+
 //for page redirecting
 if (! function_exists('page_redirect')) {
 	function page_redirect($uri = '', $method = 'auto', $code = NULL){
