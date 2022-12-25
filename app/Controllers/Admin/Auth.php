@@ -58,12 +58,10 @@ class Auth extends BaseController
                 return redirect()->route('admin.log.get')->with('error',true);
 
 
-<<<<<<< HEAD
-            $this->_session->set('user', ['login' => true,'name' => $res['name'],'email' => $res['email'],'is_admin' => true]);
-=======
+            
             $this->_session->set('admin', ['login_admin' => true,'is_admin' => true]);
->>>>>>> 5b88415b60ff120731c2106765afb8e333a7645c
             return redirect()->route('admin.dashboard');
+        
         
         }
         

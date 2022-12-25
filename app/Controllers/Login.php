@@ -59,13 +59,8 @@ class Login extends BaseController
             if ($status)
                 return redirect()->route('admin.login')->with('block',true);
 
-<<<<<<< HEAD
-
-            $this->_session->set('user', ['login' => true, 'email' => $res['email'],'name' => $res['name'],'user_id' => $res['id']]);
-=======
             $this->_userObj->where('id',$res['id'])->set(['last_login' => date('Y-m-d h:i:s')])->update();
             $this->_session->set('user', ['login' => true, 'useremail' => $res['email'],'name' => $res['name'],'user_id' => $res['id']]);
->>>>>>> 5b88415b60ff120731c2106765afb8e333a7645c
             return redirect()->route('home.dashboard');
 
 
