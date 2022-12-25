@@ -59,6 +59,13 @@ $routes->group('/admin', ['namespace' => 'App\Controllers\Admin'], function($rou
         $routes->get('add_product', 'AddProduct::add_product',['as' => 'admin.add_product']);
         $routes->post('add_product', 'AddProduct::add_product',['as' => 'admin.add_product.post']);
 
+        //user list routes
+        $routes->get('user/list', 'User::index', ['as' => 'user.list']);
+        $routes->get('user/list/add', 'User::add', ['as' => 'user.list.add']);
+        $routes->post('user/list/add', 'User::add', ['as' => 'user.list.add.post']);
+        $routes->get('user/list/edit/(:any)', 'User::edit/$1', ['as' => 'user.list.edit']);
+        $routes->post('user/list/edit/(:any)', 'User::edit/$1', ['as' => 'user.list.edit.post']);
+
 
     }
 );
