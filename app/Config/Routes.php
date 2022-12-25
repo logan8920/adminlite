@@ -44,8 +44,24 @@ $routes->get('signup', 'Signup::index',['as' => 'signup.get']);
 $routes->post('signup', 'Signup::index',['as' => 'signup.post']);
 $routes->get('buy_list', 'Home::buy_list',['as' => 'account.buy.list']);
 
+
 $routes->get('demo', 'Home::demo');
 
+
+//admin routes
+$routes->group('/admin', ['namespace' => 'App\Controllers\Admin'], function($routes)
+    { 
+        $routes->get('/', 'Auth::index',['as' => 'admin.log.get']);
+        $routes->post('/', 'Auth::index',['as' => 'admin.log.post']);
+        $routes->get('dashboard', 'Home::index',['as' => 'admin.dashboard']);
+
+
+        $routes->get('add_product', 'AddProduct::add_product',['as' => 'admin.add_product']);
+        $routes->post('add_product', 'AddProduct::add_product',['as' => 'admin.add_product.post']);
+
+
+    }
+);
 
 
 

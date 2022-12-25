@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use App\Models\UserModel;
+use App\Models\AdminModel;
 
-class Login extends BaseController
+class Auth extends BaseController
 {
-
     public $_session;
-    public $_userObj;
+    public $_adminObj;
 
     //load helper models session
     public function __construct(){
 
         helper(['site','form','url']);
-        $this->_userObj = new UserModel();
+        $this->_adminObj = new AdminModel();
         $this->_session = session();
-        check_login();
+        check_admin_login();
 
     }
 
@@ -27,7 +26,7 @@ class Login extends BaseController
         if ($this->request->getMethod() == 'post') {
             return $this->login_check();
         }
-        return view('login');
+        return view('Admin/login');
     }
 
     //check username password function
@@ -48,23 +47,22 @@ class Login extends BaseController
             $email = strip_tags($this->request->getVar('email'));
             $password = strip_tags($this->request->getVar('password'));
 
-            $res = $this->_userObj->where('email',$email)->where('password',$password)->first();
+            $res = $this->_adminObj->where('email',$email)->where('password',$password)->first();
 
             if (! $res) 
-                return redirect()->route('admin.login')->with('invalid_pass',true);
+                return redirect()->route('admin.log.get')->with('invalid_pass',true);
 
-            $status = ($res['status'] == 1) ? true : false;
+            
 
-            if ($status)
-                return redirect()->route('admin.login')->with('block',true);
-
-
-            $this->_session->set('user', ['login' => true, 'email' => $res['email'],'name' => $res['name'],'user_id' => $res['id']]);
-            return redirect()->route('home.dashboard');
+            if ($res == '')
+                return redirect()->route('admin.log.get')->with('error',true);
 
 
+            $this->_session->set('user', ['login' => true,'name' => $res['name'],'email' => $res['email'],'is_admin' => true]);
+            return redirect()->route('admin.dashboard');
         
         }
         
     }
+
 }
