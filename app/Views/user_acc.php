@@ -49,7 +49,7 @@
                         	 foreach ($acc_table as $key => $value) : ?>
 									<tr>
 									<td><?= $i ?></td>
-									<td><?= $value['name'] ?></td>
+									<td><?= $value['product_name'] ?></td>
 									<td><?= $value['email'] ?></td>
 									<td><?= $value['password'] ?></td>
 									<td><?= $value['used_date'] ?></td>
