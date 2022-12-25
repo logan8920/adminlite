@@ -11,10 +11,19 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="<?= base_url() ?>/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+<?php 
+//get gavatr from email
+$email = $session->user['name'];
+$default = "https://www.glamsham.com/wp-content/uploads/2020/02/joker-20190404113545639.jpg";
+$size = 50;
+$grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
+
+ ?>
+
+          <img src="<?php echo $grav_url ?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block"><?= $session->user['name'] ?? SITENAME ?></a>
+          <a href="<?= base_url(). "/" ?>" class="d-block"><?= $session->user['name'] ?? SITENAME ?></a>
         </div>
       </div>
 
@@ -23,8 +32,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="<?= base_url(). "/" ?>" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -44,7 +53,7 @@
           </li>
           
           <li class="nav-item">
-            <a href="<?= base_url().route_to('show.buy.new') ?>" class="nav-link">
+            <a href="<?= base_url().route_to('account.buy.list') ?>" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Buy New

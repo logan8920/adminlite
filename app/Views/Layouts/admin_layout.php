@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>/assets/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
@@ -102,19 +102,17 @@
 
 <!-- jQuery -->
 <script src="<?= base_url() ?>/assets/plugins/jquery/jquery.min.js"></script>
-<!-- SweetAlert2 -->
-<script src="<?= base_url() ?>/assets/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
 <script src="<?= base_url() ?>/assets/plugins/toastr/toastr.min.js"></script>
 <!-- daterangepicker -->
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/moment/moment.min.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <!-- SweetAlert2 -->
 <script src="<?= base_url() ?>/assets/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
 <script src="<?= base_url() ?>/assets/plugins/toastr/toastr.min.js"></script>
-<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
 <!-- Select2 -->
 <script src="<?= base_url() ?>/assets/plugins/jquery/jquery.min.js"></script>
@@ -136,24 +134,42 @@
     }
   });
 });
+
   $(function() {
     var Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
       showConfirmButton: false,
-      timer: 5000
+      timer: 3000
     });
 
-     function successtoastr(str) {
-      toastr.success(str)
-    };
-     function errortoastr(str) {
-      toastr.error(str)
-    };
-     //errortoastr("No user found.<br/> Email: prashan29t@gmail.com");  
+   
 
+    $('.toastrDefaultSuccess').click(function() {
+      toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+    });
+    $('.toastrDefaultInfo').click(function() {
+      toastr.info('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+    });
+    $('.toastrDefaultError').click(function() {
+      toastr.error('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+    });
+    $('.toastrDefaultWarning').click(function() {
+      toastr.warning('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+    });
+
+   
     
+   
   });
 </script>
+ <?php 
+        $success = \Config\Services::session()->getFlashdata('product_added');
+        if ($success) 
+          echo '<p class="text-success">Product add successfully!</p>';
+?>
+<!-- <script>
+   toastr.warning('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+</script> -->
 </body>
 </html>

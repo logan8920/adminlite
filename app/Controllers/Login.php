@@ -61,6 +61,7 @@ class Login extends BaseController
 
             $this->_userObj->where('id',$res['id'])->set(['last_login' => date('Y-m-d h:i:s')])->update();
             $this->_session->set('user', ['login' => true, 'useremail' => $res['email'],'name' => $res['name'],'user_id' => $res['id']]);
+
             return redirect()->route('home.dashboard');
 
 
