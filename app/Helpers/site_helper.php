@@ -26,7 +26,7 @@ if (! function_exists('check_logout')) {
 if (! function_exists('check_admin_login')) {
 	function check_admin_login(){
 		$session = \Config\Services::session();
-		if (isset($session->user['login']) && $session->user['login'] == true) {
+		if (isset($session->admin['login_admin']) && $session->admin['login'] == true) {
 			page_redirect(route_to('admin.dashboard'));
 		}
 	}
@@ -37,7 +37,7 @@ if (! function_exists('check_admin_login')) {
 if (! function_exists('check_admin_logout')) {
 	function check_admin_logout(){
 		$session = \Config\Services::session();
-		if (!isset($session->user['login'])) {
+		if (!isset($session->admin['login_admin'])) {
 			page_redirect(route_to('admin.log.get'));
 		}
 	}

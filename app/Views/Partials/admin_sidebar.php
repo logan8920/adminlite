@@ -75,10 +75,10 @@
           </li>
           
           <li class="nav-item">
-            <a href="<?= base_url().route_to('show.buy.new') ?>" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="<?= base_url().route_to('user.list') ?>" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
               <p>
-                Buy New
+                User List
                
               </p>
             </a>

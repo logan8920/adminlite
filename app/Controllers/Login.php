@@ -33,6 +33,7 @@ class Login extends BaseController
     //check username password function
     public function login_check($value='')
     {
+        date_default_timezone_set("Asia/Kolkata");
         $rules = [
                         'email' => 'required|valid_email',
                         'password' => 'required'
@@ -58,8 +59,9 @@ class Login extends BaseController
             if ($status)
                 return redirect()->route('admin.login')->with('block',true);
 
+            $this->_userObj->where('id',$res['id'])->set(['last_login' => date('Y-m-d h:i:s')])->update();
+            $this->_session->set('user', ['login' => true, 'useremail' => $res['email'],'name' => $res['name'],'user_id' => $res['id']]);
 
-            $this->_session->set('user', ['login' => true, 'email' => $res['email'],'name' => $res['name'],'user_id' => $res['id']]);
             return redirect()->route('home.dashboard');
 
 
