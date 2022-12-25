@@ -26,7 +26,7 @@ class Auth extends BaseController
         if ($this->request->getMethod() == 'post') {
             return $this->login_check();
         }
-        return view('Admin/login');
+        return view('Admin/Auth/login');
     }
 
     //check username password function
@@ -58,7 +58,7 @@ class Auth extends BaseController
                 return redirect()->route('admin.log.get')->with('error',true);
 
 
-            $this->_session->set('user', ['login' => true,'is_admin' => true]);
+            $this->_session->set('admin', ['login_admin' => true,'is_admin' => true]);
             return redirect()->route('admin.dashboard');
         
         }

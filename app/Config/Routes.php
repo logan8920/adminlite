@@ -53,6 +53,13 @@ $routes->group('/admin', ['namespace' => 'App\Controllers\Admin'], function($rou
         $routes->get('dashboard', 'Home::index',['as' => 'admin.dashboard']);
         $routes->get('add-product', 'Home::add_product', ['as' => 'add.product']);
 
+        //user list routes
+        $routes->get('user/list', 'User::index', ['as' => 'user.list']);
+        $routes->get('user/list/add', 'User::add', ['as' => 'user.list.add']);
+        $routes->post('user/list/add', 'User::add', ['as' => 'user.list.add.post']);
+        $routes->get('user/list/edit/(:any)', 'User::edit/$1', ['as' => 'user.list.edit']);
+        $routes->post('user/list/edit/(:any)', 'User::edit/$1', ['as' => 'user.list.edit.post']);
+
 
     }
 );

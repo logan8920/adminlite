@@ -22,7 +22,7 @@ class Home extends BaseController
     public function index()
     {
         $data['page_title'] = 'Admin | Dashboard';
-        return view('Admin/dashboard',$data);
+        return view('Admin/Dashboard/dashboard',$data);
     }
 
     //demo 
