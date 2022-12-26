@@ -1,5 +1,7 @@
 <?php  
 
+use App\Models\AccountsModel;
+
 
 //check login function
 if (! function_exists('check_login')) {
@@ -10,6 +12,17 @@ if (! function_exists('check_login')) {
 		}
 	}
 }
+
+//check the no of account in db
+ if(! function_exists('count_varient_id')) {
+   function count_varient_id($varient_id=''){
+   		$accObj = new AccountsModel();
+   		$used = $accObj->where('plan_varient_id',$varient_id ?? '')->where('status',1)->countAllResults() ?? '0';
+   		$total =  $accObj->where('plan_varient_id',$varient_id ?? '')->countAllResults() ?? '0';
+   		return $used.'/'.$total;
+   }
+
+ }
 
 
 //check logout function

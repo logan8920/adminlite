@@ -55,9 +55,16 @@ $routes->group('/admin', ['namespace' => 'App\Controllers\Admin'], function($rou
         $routes->post('/', 'Auth::index',['as' => 'admin.log.post']);
         $routes->get('dashboard', 'Home::index',['as' => 'admin.dashboard']);
 
+// product list routes
+$routes->get('product_list', 'AddProduct::product_list',['as' => 'admin.product_list']);
+$routes->get('product_delete', 'AddProduct::product_delete',['as' => 'admin.product_delete']);
+$routes->get('add_product', 'AddProduct::add_product',['as' => 'admin.add_product']);
+$routes->post('add_product', 'AddProduct::add_product',['as' => 'admin.add_product.post']);
+$routes->get('add_plan', 'AddProduct::add_plan',['as' => 'admin.add_plan']);
+$routes->post('add_plan', 'AddProduct::add_plan',['as' => 'admin.add_plan.post']);
+$routes->get('add_account', 'AddProduct::add_account',['as' => 'admin.add_account']);
+$routes->post('add_account', 'AddProduct::add_account',['as' => 'admin.add_account.post']);
 
-        $routes->get('add_product', 'AddProduct::add_product',['as' => 'admin.add_product']);
-        $routes->post('add_product', 'AddProduct::add_product',['as' => 'admin.add_product.post']);
 
         //user list routes
         $routes->get('user/list', 'User::index', ['as' => 'user.list']);

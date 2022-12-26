@@ -41,6 +41,12 @@
     </p>
   </a>
   <ul class="nav nav-treeview" style="display: none;">
+     <li class="nav-item">
+      <a href="<?= base_url().route_to('admin.product_list') ?>" class="nav-link">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Product List</p>
+      </a>
+    </li>
     <li class="nav-item">
       <a href="<?= base_url().route_to('admin.add_product') ?>" class="nav-link">
         <i class="far fa-circle nav-icon"></i>
@@ -50,7 +56,7 @@
     <li class="nav-item">
       <a href="<?= base_url().route_to('admin.add_plan') ?>" class="nav-link">
         <i class="far fa-circle nav-icon"></i>
-        <p>Add Price</p>
+        <p>Add Plan</p>
       </a>
     </li>
     <li class="nav-item">

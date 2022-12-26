@@ -17,7 +17,7 @@
      
 <?php 
 //get gavatr from email
-$email = $session->user['email'];
+$email = $session->user['email'] ?? "admin@gravatar.com";
 $default = "https://www.glamsham.com/wp-content/uploads/2020/02/joker-20190404113545639.jpg";
 $size = 50;
 $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
