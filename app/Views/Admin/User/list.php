@@ -50,6 +50,7 @@
                      <th>ID</th>
                      <th>Name</th>
                      <th>Email</th>
+                     <th>Balance<small>(PKR)</small></th>
                      <th>Mobile</th>
                      <th>Last Login</th>
                      <th>Action</th>
@@ -64,6 +65,7 @@
 									<td><?= $i ?></td>
 									<td><?= $value['name'] ?></td>
 									<td><?= $value['email'] ?></td>
+                                    <td><?= $value['amount'] ?></td>
 									<td><?= $value['phone'] ?></td>
 									<td><?= $value['last_login'] ?? 'Not Logged In' ?></td>
                                     <td><a href="<?= base_url().route_to('user.list.edit',$value['id']) ?>" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i></a>

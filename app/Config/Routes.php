@@ -73,6 +73,10 @@ $routes->post('add_account', 'AddProduct::add_account',['as' => 'admin.add_accou
         $routes->get('user/list/edit/(:any)', 'User::edit/$1', ['as' => 'user.list.edit']);
         $routes->post('user/list/edit/(:any)', 'User::edit/$1', ['as' => 'user.list.edit.post']);
 
+        //Balance Route
+        $routes->get('add-balance', 'Balance::index', ['as' => 'add.balance']);
+        $routes->post('add-balance', 'Balance::index', ['as' => 'add.balance.post']);
+
 
     }
 );
