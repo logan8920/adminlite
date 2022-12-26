@@ -4,17 +4,20 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Models\BalanceModel;
 
 class Signup extends BaseController
 {
     public $_session;
     public $_userObj;
+    public $_balanceObj;
 
     //load helper models session
     public function __construct(){
         helper(['site','uri','form']);
         $this->_session = session();
         $this->_userObj = new UserModel();
+        $this->_balanceObj = new BalanceModel();
         check_login();
 
 
@@ -62,6 +65,7 @@ class Signup extends BaseController
             $res = $this->_userObj->set($_POST)->insert();
             // echo $this->_userObj->getLastQuery()->getQuery(); die;
             if ($res) {
+                $this->_balanceObj->insert(['amount' => 0, 'user_id' => $this->_userObj->insertID() ?? 0,'updated_at' => date('Y-m-d H:i:s')]);
                 return redirect()->route('admin.login')->with('success',true);
             }else{
                 return redirect()->route('signup.get')->with('error',true);

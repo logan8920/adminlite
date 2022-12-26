@@ -34,6 +34,7 @@
                      <span class="fas fa-envelope"></span>
                   </div>
                </div>
+               <?php  if (isset($validator)){ echo $validator->hasError('email') ? ('<span style="display:block" class="error invalid-feedback"'.$validator->showError('email').'</span>') : ""; } ?>
             </div>
             <div class="input-group mb-3">
                <input type="password"  name="password" class="form-control" placeholder="Password">
@@ -42,6 +43,7 @@
                      <span class="fas fa-lock"></span>
                   </div>
                </div>
+               <?php  if (isset($validator)){ echo $validator->hasError('password') ? ('<span style="display:block" class="error invalid-feedback"'.$validator->showError('password').'</span>') : ""; } ?>
             </div>
             <div class="row">
               <div class="col">

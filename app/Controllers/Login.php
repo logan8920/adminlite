@@ -65,6 +65,8 @@ class Login extends BaseController
 
 
         
+        }else{
+            return view('login',['validator' => $this->validator]);
         }
         
     }
