@@ -52,6 +52,17 @@
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="<?= base_url().route_to('add.balance') ?>" class="nav-link">
+              <i class="nav-icon fas fa-money-bill"></i>
+              <p>
+                Add Balance
+               
+              </p>
+            </a>
+          </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

@@ -61,6 +61,9 @@ class Auth extends BaseController
             $this->_session->set('admin', ['login_admin' => true,'is_admin' => true]);
             return redirect()->route('admin.dashboard');
         
+        }else{
+            
+            return view('Admin/Auth/login',['validator' => $this->validator]);
         }
         
     }

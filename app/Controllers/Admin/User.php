@@ -4,17 +4,21 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Models\BalanceModel;
 
 class User extends BaseController
 {
     public $_userObj;
     public $_session;
+    public $_db;
 
     //load site helper session
     public function __construct(){
 
         helper(['site','uri','form']);
+        $this->_db = \Config\Database::connect();
         $this->_userObj  = new UserModel();
+        $this->_balanceObj = new BalanceModel();
         $this->_session = session();
         check_admin_logout();
     }
@@ -22,7 +26,27 @@ class User extends BaseController
     //load user list
     public function index()
     {
-        $data['userList'] = $this->_userObj->findAll() ?? [];
+
+        // $builder = $this->_db->table('user as user');
+        // $builder->select('bal.amount,user.*');
+        // $builder->join('balance as bal', 'bal.user_id = user.id');
+        // $data['userList'] = $builder->get()->getResultArray() ?? [];
+        $userLists = $this->_userObj->findAll() ?? [];
+        $userList = [];
+        foreach ($userLists as $key => $value) :
+            $userList[] = array(
+                                'id' => $value['id'],
+                                'name' => $value['name'],
+                                'email' => $value['email'],
+                                'phone' => $value['phone'],
+                                'last_login' => $value['last_login'],
+                                'password' => $value['password'],
+                                'status' => $value['status'],
+                                'amount' => $this->_balanceObj->where('user_id',$value['id'])->first()['amount'] ?? '0'
+                            );
+        endforeach;
+        $data['userList'] = $userList;
+
         $data['page_title'] = 'User List';
         return view('Admin/User/list',$data);
     }
@@ -72,8 +96,12 @@ class User extends BaseController
             $_POST['created_at'] = date('Y-m-d H:i:s');
             
             $res = $this->_userObj->set($_POST)->insert();
+
+
             // echo $this->_userObj->getLastQuery()->getQuery(); die;
             if ($res) {
+ 
+                $this->_balanceObj->insert(['amount' => 0, 'user_id' => $this->_userObj->insertID() ?? 0,'updated_at' => date('Y-m-d H:i:s')]);
                 return redirect()->route('user.list')->with('success',true);
             }else{
                 return redirect()->route('user.list')->with('error',true);
