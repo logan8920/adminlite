@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use App\Models\UserModel;
+use App\Models\AdminModel;
 
-class Login extends BaseController
+class Auth extends BaseController
 {
-
     public $_session;
-    public $_userObj;
+    public $_adminObj;
 
     //load helper models session
     public function __construct(){
 
         helper(['site','form','url']);
-        $this->_userObj = new UserModel();
+        $this->_adminObj = new AdminModel();
         $this->_session = session();
-        check_login();
+        check_admin_login();
 
     }
 
@@ -27,13 +26,12 @@ class Login extends BaseController
         if ($this->request->getMethod() == 'post') {
             return $this->login_check();
         }
-        return view('login');
+        return view('Admin/Auth/login');
     }
 
     //check username password function
     public function login_check($value='')
     {
-        date_default_timezone_set("Asia/Kolkata");
         $rules = [
                         'email' => 'required|valid_email',
                         'password' => 'required'
@@ -49,25 +47,27 @@ class Login extends BaseController
             $email = strip_tags($this->request->getVar('email'));
             $password = strip_tags($this->request->getVar('password'));
 
-            $res = $this->_userObj->where('email',$email)->where('password',$password)->first();
+            $res = $this->_adminObj->where('email',$email)->where('password',$password)->first();
 
             if (! $res) 
-                return redirect()->route('admin.login')->with('invalid_pass',true);
+                return redirect()->route('admin.log.get')->with('invalid_pass',true);
 
-            $status = ($res['status'] == 1) ? true : false;
+            
 
-            if ($status)
-                return redirect()->route('admin.login')->with('block',true);
-
-            $this->_userObj->where('id',$res['id'])->set(['last_login' => date('Y-m-d h:i:s')])->update();
-            $this->_session->set('user', ['login' => true, 'useremail' => $res['email'],'name' => $res['name'],'user_id' => $res['id']]);
-            return redirect()->route('home.dashboard');
+            if ($res == '')
+                return redirect()->route('admin.log.get')->with('error',true);
 
 
-        
+            
+            $this->_session->set('admin', ['login_admin' => true,'is_admin' => true]);
+            return redirect()->route('admin.dashboard');
+
         }else{
-            return view('login',['validator' => $this->validator]);
+            
+            return view('Admin/Auth/login',['validator' => $this->validator]);
+
         }
         
     }
+
 }

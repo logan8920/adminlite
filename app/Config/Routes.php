@@ -44,8 +44,35 @@ $routes->get('signup', 'Signup::index',['as' => 'signup.get']);
 $routes->post('signup', 'Signup::index',['as' => 'signup.post']);
 $routes->get('buy_list', 'Home::buy_list',['as' => 'account.buy.list']);
 
+
 $routes->get('demo', 'Home::demo');
 
+
+//admin routes
+$routes->group('/admin', ['namespace' => 'App\Controllers\Admin'], function($routes)
+    { 
+        $routes->get('/', 'Auth::index',['as' => 'admin.log.get']);
+        $routes->post('/', 'Auth::index',['as' => 'admin.log.post']);
+        $routes->get('dashboard', 'Home::index',['as' => 'admin.dashboard']);
+
+
+        $routes->get('add_product', 'AddProduct::add_product',['as' => 'admin.add_product']);
+        $routes->post('add_product', 'AddProduct::add_product',['as' => 'admin.add_product.post']);
+
+        //user list routes
+        $routes->get('user/list', 'User::index', ['as' => 'user.list']);
+        $routes->get('user/list/add', 'User::add', ['as' => 'user.list.add']);
+        $routes->post('user/list/add', 'User::add', ['as' => 'user.list.add.post']);
+        $routes->get('user/list/edit/(:any)', 'User::edit/$1', ['as' => 'user.list.edit']);
+        $routes->post('user/list/edit/(:any)', 'User::edit/$1', ['as' => 'user.list.edit.post']);
+
+        //Balance Route
+        $routes->get('add-balance', 'Balance::index', ['as' => 'add.balance']);
+        $routes->post('add-balance', 'Balance::index', ['as' => 'add.balance.post']);
+
+
+    }
+);
 
 
 
