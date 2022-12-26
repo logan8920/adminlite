@@ -25,9 +25,26 @@ class Home extends BaseController
         return view('Admin/Dashboard/dashboard',$data);
     }
 
-    //demo 
+    //add product to db 
     public function add_product()
     {
-        return view('admin/demo');
+         $data['page_title'] = 'Add New Product';
+        return view('Admin/add_product',$data);
     }
+
+    //add product to db 
+    public function add_price()
+    {
+         $data['page_title'] = 'Add Plan';
+        return view('Admin/add_plan',$data);
+    }
+
+    //add product to db 
+    public function add_account()
+    {
+         $data['page_title'] = 'Add New Product';
+        return view('Admin/add_account',$data);
+    }
+
+
 }

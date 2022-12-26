@@ -16,16 +16,15 @@ class AccountsModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
 
-                                'name',
-                                'email',
-                                'password',
-                                'created_at',
-                                'updated_at',
-                                'used',
-                                'user_id',
-                                'price',
-                                'status',
-                                'used_date'
+                                    'id',
+                                    'user_id',
+                                    'product_id',
+                                    'product_name',
+                                    'validity',
+                                    'price',
+                                    'email',
+                                    'password'
+
                                  ];
 
     // Dates

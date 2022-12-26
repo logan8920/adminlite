@@ -40,9 +40,12 @@ $routes->get('login', 'Login::index', ['as' => 'admin.login']);
 $routes->post('login', 'Login::index', ['as' => 'admin.login.post']);
 $routes->get('dashboard', 'Home::index');
 $routes->get('my', 'Home::my', ['as' => 'show.my']);
-$routes->get('new', 'Home::new', ['as' => 'show.buy.new']);
 $routes->get('signup', 'Signup::index',['as' => 'signup.get']);
 $routes->post('signup', 'Signup::index',['as' => 'signup.post']);
+$routes->get('buy_list', 'Home::buy_list',['as' => 'account.buy.list']);
+
+
+$routes->get('demo', 'Home::demo');
 
 
 //admin routes
@@ -51,7 +54,10 @@ $routes->group('/admin', ['namespace' => 'App\Controllers\Admin'], function($rou
         $routes->get('/', 'Auth::index',['as' => 'admin.log.get']);
         $routes->post('/', 'Auth::index',['as' => 'admin.log.post']);
         $routes->get('dashboard', 'Home::index',['as' => 'admin.dashboard']);
-        $routes->get('add-product', 'Home::add_product', ['as' => 'add.product']);
+
+
+        $routes->get('add_product', 'AddProduct::add_product',['as' => 'admin.add_product']);
+        $routes->post('add_product', 'AddProduct::add_product',['as' => 'admin.add_product.post']);
 
         //user list routes
         $routes->get('user/list', 'User::index', ['as' => 'user.list']);
@@ -67,9 +73,6 @@ $routes->group('/admin', ['namespace' => 'App\Controllers\Admin'], function($rou
 
     }
 );
-
-
-
 
 
 

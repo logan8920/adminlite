@@ -23,6 +23,7 @@
   <!-- JQVMap -->
    <!-- Select2 -->
   <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
@@ -107,14 +108,14 @@
 <!-- Toastr -->
 <script src="<?= base_url() ?>/assets/plugins/toastr/toastr.min.js"></script>
 <!-- daterangepicker -->
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/moment/moment.min.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <!-- SweetAlert2 -->
 <script src="<?= base_url() ?>/assets/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
 <script src="<?= base_url() ?>/assets/plugins/toastr/toastr.min.js"></script>
-<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
 <!-- Select2 -->
 <script src="<?= base_url() ?>/assets/plugins/jquery/jquery.min.js"></script>

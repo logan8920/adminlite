@@ -33,6 +33,37 @@
             </a>
             
           </li>
+
+                <li class="nav-item">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-table"></i>
+    <p> Products <i class="fas fa-angle-left right"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview" style="display: none;">
+    <li class="nav-item">
+      <a href="<?= base_url().route_to('admin.add_product') ?>" class="nav-link">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Add Product</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="<?= base_url().route_to('admin.add_plan') ?>" class="nav-link">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Add Price</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="<?= base_url().route_to('admin.add_account') ?>" class="nav-link">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Add Accounts</p>
+      </a>
+    </li>
+  </ul>
+</li>
+
+
+
           <li class="nav-item">
             <a href="<?= base_url().route_to('add.product') ?>" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
