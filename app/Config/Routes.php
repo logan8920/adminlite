@@ -36,6 +36,7 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index', ['as' => 'home.dashboard']);
+$routes->get('logout', 'Home::logout_user', ['as' => 'user.logout']);
 $routes->get('login', 'Login::index', ['as' => 'admin.login']);
 $routes->post('login', 'Login::index', ['as' => 'admin.login.post']);
 $routes->get('dashboard', 'Home::index');
@@ -43,8 +44,9 @@ $routes->get('my', 'Home::my', ['as' => 'show.my']);
 $routes->get('signup', 'Signup::index',['as' => 'signup.get']);
 $routes->post('signup', 'Signup::index',['as' => 'signup.post']);
 $routes->get('buy_list', 'Home::buy_list',['as' => 'account.buy.list']);
-
-
+$routes->get('buy_accounts/(:any)', 'Home::buy_accounts/$1',['as' => 'user.buy.accounts']);
+$routes->get('purchase/(:any)', 'Home::purchase/$1',['as' => 'user.purchase']);
+$routes->get('add_fund', 'Home::add_fund',['as' => 'user.add_fund']);
 $routes->get('demo', 'Home::demo');
 
 
@@ -54,10 +56,24 @@ $routes->group('/admin', ['namespace' => 'App\Controllers\Admin'], function($rou
         $routes->get('/', 'Auth::index',['as' => 'admin.log.get']);
         $routes->post('/', 'Auth::index',['as' => 'admin.log.post']);
         $routes->get('dashboard', 'Home::index',['as' => 'admin.dashboard']);
+        $routes->get('logoutxx', 'Home::admin_logout', ['as' => 'admin.logout']);
+//site setting
+       $routes->get('setting', 'Home::setting',['as' => 'admin.site.setting']); 
+       $routes->post('setting', 'Home::setting',['as' => 'admin.site.setting.post']); 
 
 
-        $routes->get('add_product', 'AddProduct::add_product',['as' => 'admin.add_product']);
-        $routes->post('add_product', 'AddProduct::add_product',['as' => 'admin.add_product.post']);
+// product list routes
+$routes->get('product_list', 'AddProduct::product_list',['as' => 'admin.product_list']);
+$routes->get('account_list/(:any)', 'AddProduct::account_list/$1',['as' => 'admin.account_list']);
+$routes->get('account_delete/(:any)', 'AddProduct::account_delete/$1',['as' => 'admin.account_delete']);
+$routes->get('product_delete', 'AddProduct::product_delete',['as' => 'admin.product_delete']);
+$routes->get('add_product', 'AddProduct::add_product',['as' => 'admin.add_product']);
+$routes->post('add_product', 'AddProduct::add_product',['as' => 'admin.add_product.post']);
+$routes->get('add_plan', 'AddProduct::add_plan',['as' => 'admin.add_plan']);
+$routes->post('add_plan', 'AddProduct::add_plan',['as' => 'admin.add_plan.post']);
+$routes->get('add_account', 'AddProduct::add_account',['as' => 'admin.add_account']);
+$routes->post('add_account', 'AddProduct::add_account',['as' => 'admin.add_account.post']);
+
 
         //user list routes
         $routes->get('user/list', 'User::index', ['as' => 'user.list']);

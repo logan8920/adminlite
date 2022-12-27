@@ -20,6 +20,7 @@ class Auth extends BaseController
 
     }
 
+   
     //load login page
     public function index()
     {
@@ -50,17 +51,17 @@ class Auth extends BaseController
             $res = $this->_adminObj->where('email',$email)->where('password',$password)->first();
 
             if (! $res) 
-                return redirect()->route('admin.log.get')->with('invalid_pass',true);
+                return redirect()->route('admin.log.get')->with('error',"Invaild Username password!");
 
             
 
             if ($res == '')
-                return redirect()->route('admin.log.get')->with('error',true);
+                return redirect()->route('admin.log.get')->with('error',"Something went worng");
 
 
             
             $this->_session->set('admin', ['login_admin' => true,'is_admin' => true]);
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.dashboard')->with('success',"SignIn Successfully!");
 
         }else{
             

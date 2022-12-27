@@ -14,7 +14,7 @@
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
               <a href="
-                        <?= base_url() ?>">Home </a>
+                        <?= base_url(route_to('admin.dashboard')) ?>">Home </a>
             </li>
             <li class="breadcrumb-item active"> <?= $page_title ?? 'Page' ?> </li>
           </ol>
@@ -34,29 +34,10 @@
         <div class="col-lg-12">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Add Product</h3>
-            </div>
-
-            <?php echo form_open(route_to('admin.add_product.post'), ['method' => 'post']); ?>
-          
-              <div class="card-body">
-                <?php 
-        $success = \Config\Services::session()->getFlashdata('product_added');
-        if ($success) 
-          echo '<p class="text-success">Product add successfully!</p>';
-
-        
-         $error = \Config\Services::session()->getFlashdata('error');
-         if ($error) 
-            echo '<p class="text-danger">Something Went wrong. Please Contact to the developer.</p>'     
-      
-
-      ?>
-
-
-
-
-                <div class="form-group">
+              <h3 class="card-title"><?= $page_title ?? 'Add Product' ?></h3>
+            </div><div class="card-body">
+              <?php echo form_open(route_to('admin.add_product.post'), ['method' => 'post','enctype' => 'multipart/form-data']); ?>
+             <div class="form-group">
                   <label for="exampleInputEmail1">Product Name</label>
                   <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter Product name">
                   <?php  if (isset($validator)){ echo $validator->hasError('name') ? ('<span style="display:block" class="error invalid-feedback"'.$validator->showError('name').'</span>') : ""; } ?>

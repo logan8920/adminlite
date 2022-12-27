@@ -11,21 +11,7 @@
       </div>
       <div class="card-body">
          <p class="login-box-msg">Sign in to start your session</p>
-         <?php 
-	  		$invalid_pass = \Config\Services::session()->getFlashdata('invalid_pass');
-	  		if ($invalid_pass) 
-	  			echo '<p class="text-danger">Please enter valid username and password</p>';
-
-         $success = \Config\Services::session()->getFlashdata('success');
-         if ($success) 
-            echo '<p class="text-success">Successfully Registered! Please Login.</p>';
-	  	   $block = \Config\Services::session()->getFlashdata('block');
-         if ($block) 
-            echo '<p class="text-danger">Account Blocked! Please contact Admin.</p>'     
-      
-
-	  	?>
-        <?php echo form_open(route_to('admin.login.post'), ['method' => 'post']); ?>
+         <?php echo form_open(route_to('admin.login.post'), ['method' => 'post']); ?>
 				<?php echo csrf_field() ?>
             <div class="input-group mb-3">
                <input type="email" name="email" class="form-control" placeholder="Email">

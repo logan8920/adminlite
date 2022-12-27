@@ -10,23 +10,11 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="<?= base_url() ?>">Home</a></li>
-              <li class="breadcrumb-item active"><?= $page_title ?? 'Page' ?></li>
+              <li class="breadcrumb-item"><a href=" <?= base_url(route_to('admin.dashboard')) ?>">Home </a></li>
+              <li class="breadcrumb-item active"><?= $page_title ?? 'User Lists' ?></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
-        <?php $error = \Config\Services::session()->getFlashdata('error');
-         if ($error) 
-            echo '<p class="text-danger">Something Went Wrong! DB API</p>';
-
-            $update = \Config\Services::session()->getFlashdata('update');
-             if ($update) 
-                echo '<p class="text-success">Successfully Updated</p>'; 
-
-            $success = \Config\Services::session()->getFlashdata('success');
-             if ($success) 
-                echo '<p class="text-success">Successfully Added</p>';
-         ?>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -38,9 +26,9 @@
    <div class="col-12">
       <div class="card">
          <div class="card-header">
-            <h3 class="card-title">Account info</h3>
+            <h3 class="card-title"><?= $page_title ?? 'All Users' ?></h3>
             <div class="card-tools">
-               <a href="<?= base_url(route_to('user.list.add')) ?>" class="btn btn-primary btn-xs float-end">Add User</a>
+               <a href="<?= base_url(route_to('user.list.add')) ?>" class="btn btn-success float-end">Add User</a>
             </div>
          </div>
          <div class="card-body table-responsive p-0">

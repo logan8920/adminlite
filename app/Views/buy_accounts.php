@@ -33,7 +33,7 @@
        <div class="col-lg-12">
       <div class="card">
          <div class="card-header border-0">
-            <h3 class="card-title"><?= $page_title ?? 'All Products' ?></h3>
+            <h3 class="card-title"><?= $page_title ?? 'All Accounts' ?></h3>
          </div>
     
          <div class="card-body table-responsive p-0">
@@ -43,16 +43,16 @@
                       <th>S. No</th>
                      <th>Product</th>
                      <th>Price/Day's</th>
-                     <th>Accounts</th>
+                     <th>No of Account</th>
                      <th>Action</th>
                   </tr>
                </thead>
                <tbody>
 
                    <?php 
-                        if(count($join)){
+                        if(count($account_info)){
                            $i =1;
-                            foreach ($join as $key => $value) : ?>
+                            foreach ($account_info as $key => $value) : ?>
                            <tr>
                            <td><?= $i ?></td>
                            <td>
@@ -60,19 +60,14 @@
                            <?= $value['name'] ?>
                            </td>
                            <td><?= $value['price'].'<small>PKR </small>' ?> For <?= $value['validity'] ?> Day's</td>
-                           <td><?= count_account_for_sale($value['id']).' account for sale'  ?></td>
+                           <td>1</td>
 
-                                              <td>
-                     <?php if(count_account_for_sale($value['id']) ==0)
-                     {
-                        echo '<a  title="Delete" href="#" class="btn btn-danger">OUT OF STOCK</a>';
-                     } else{
-                         echo '<a  title="Delete" href="'.base_url().route_to('user.buy.accounts',$value['id']).'" class="btn btn-success">BUY NOW</a>';
-                     } ?>
-                  
-                  </td>
+                            <td>
+                             <a  title="BUY NOW" href="<?= base_url().route_to('user.purchase',$value['id']) ?>" class="btn btn-success">BUY NOW</a>
+                           </td>
                            
-                      </tr>
+                           
+                           </tr>
                         
                           <?php  $i++; endforeach;
                         } else {

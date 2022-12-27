@@ -39,6 +39,9 @@
   <link rel="stylesheet" href="<?= base_url() ?>/assets/plugins/dropzone/min/dropzone.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
   <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.min.css">
 </head>
 <!--
 `body` tag options:
@@ -55,7 +58,7 @@
   <!-- ================================================ -->
   <!-- start of nav bar -->
   <!-- ================================================ -->
-  <?= $this->include('Partials/navbar.php'); ?>
+  <?= $this->include('Partials/navbar_admin.php'); ?>
   <!-- ================================================ -->
   <!-- end of nav bar -->
   <!-- ================================================ -->
@@ -85,7 +88,7 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+     <strong>Copyright &copy; <?= date("Y") ?> <a href="<?= base_url() ?>"><?= SITENAME ?></a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.2.0
@@ -142,34 +145,20 @@
       showConfirmButton: false,
       timer: 3000
     });
-
-   
-
-    $('.toastrDefaultSuccess').click(function() {
-      toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
-    });
-    $('.toastrDefaultInfo').click(function() {
-      toastr.info('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
-    });
-    $('.toastrDefaultError').click(function() {
-      toastr.error('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
-    });
-    $('.toastrDefaultWarning').click(function() {
-      toastr.warning('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
-    });
-
-   
-    
-   
-  });
+});
 </script>
- <?php 
-        $success = \Config\Services::session()->getFlashdata('product_added');
-        if ($success) 
-          echo '<p class="text-success">Product add successfully!</p>';
-?>
-<!-- <script>
-   toastr.warning('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
-</script> -->
+<script>
+$(function(){
+    <?php if(session()->has("error")) { ?>
+       toastr.error('<?= session("error") ?>')
+    <?php } ?>
+});
+$(function(){
+    <?php if(session()->has("success")) { ?>
+       toastr.success('<?= session("success") ?>')
+    <?php } ?>
+});
+
+</script>
 </body>
 </html>

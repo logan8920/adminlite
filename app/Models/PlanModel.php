@@ -4,10 +4,10 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class AccountsModel extends Model
+class PlanModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'accounts';
+    protected $table            = 'price';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
@@ -16,18 +16,12 @@ class AccountsModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
 
-                                    'id',
-                                    'user_id',
-                                    'product_id',
                                     'product_name',
-                                    'validity',
+                                    'product_id',
                                     'price',
-                                    'email',
-                                    'password',
-                                    'used_date',
-                                    'status'
+                                    'validity'
 
-                                 ];
+                                  ];
 
     // Dates
     protected $useTimestamps = false;

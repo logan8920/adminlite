@@ -58,7 +58,7 @@ class Balance extends BaseController
             $post_datas['user_id'] = $this->_userObj->where('email',$_POST['email'])->first()['id'] ?? '';
             //echo $this->_userObj->getLastQuery()->getQuery(); die;
             if (!$post_datas['user_id']) 
-                return redirect()->route('add.balance')->with('invalid_email',true);
+                return redirect()->route('add.balance')->with('error',"Email not Found!");
 
             $post_data['updated_at'] = date('Y-m-d H:i:s');
 
@@ -71,11 +71,11 @@ class Balance extends BaseController
 
             if ($res) {
                 
-                return redirect()->route('user.list')->with('success',true);
+                return redirect()->route('user.list')->with('success',"Balance add successfully!");
 
             }else{
 
-                return redirect()->route('add.balance')->with('error',true);
+                return redirect()->route('add.balance')->with('error',"Something Went Worng");
             }
             
         }else{

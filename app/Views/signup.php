@@ -10,12 +10,7 @@
     </div>
     <div class="card-body">
       <p class="login-box-msg">Register a new member</p>
-
-      <?php $error = \Config\Services::session()->getFlashdata('error');
-         if ($error) 
-            echo '<p class="text-danger">Something Went Wrong! DB API</p>' 
-         ?>
-      <?php echo form_open(route_to('signup.post'), ['method' => 'post']); ?>
+         <?php echo form_open(route_to('signup.post'), ['method' => 'post']); ?>
             <?php echo csrf_field() ?>
         <div class="input-group mb-3">
           <input type="text" name="name" class="form-control" placeholder="Full name" value="Prashant" >

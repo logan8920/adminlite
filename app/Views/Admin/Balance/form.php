@@ -35,13 +35,6 @@
             <div class="card-header">
               <h3 class="card-title"><?= $page_title ?? 'Edit' ?></h3>
             </div>
-            <?php $error = \Config\Services::session()->getFlashdata('error');
-             if ($error) 
-                echo '<p class="text-danger">Something Went Wrong! DB API</p>';
-              $invalid_email = \Config\Services::session()->getFlashdata('invalid_email');
-             if ($invalid_email) 
-                echo '<p class="text-danger">Email Address Not found</p>';
-             ?>
             <?= form_open(route_to($action), ['method' => 'post']) ?>
               <?= csrf_field() ?>
               <div class="card-body">

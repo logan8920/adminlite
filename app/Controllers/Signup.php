@@ -66,9 +66,9 @@ class Signup extends BaseController
             // echo $this->_userObj->getLastQuery()->getQuery(); die;
             if ($res) {
                 $this->_balanceObj->insert(['amount' => 0, 'user_id' => $this->_userObj->insertID() ?? 0,'updated_at' => date('Y-m-d H:i:s')]);
-                return redirect()->route('admin.login')->with('success',true);
+                return redirect()->route('admin.login')->with('success',"Signup Success, Please Login!");
             }else{
-                return redirect()->route('signup.get')->with('error',true);
+                return redirect()->route('signup.get')->with('error',"Please try again!");
             }
         }
     }
