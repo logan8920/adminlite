@@ -14,7 +14,7 @@
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
               <a href="
-                        <?= base_url() ?>">Home </a>
+                       <?= base_url(route_to('admin.dashboard')) ?>">Home </a>
             </li>
             <li class="breadcrumb-item active"> <?= $page_title ?? 'Page' ?> </li>
           </ol>
@@ -34,18 +34,12 @@
         <div class="col-lg-12">
    <div class="card card-primary">
       <div class="card-header">
-         <h3 class="card-title">Add Price and Days</h3>
+         <h3 class="card-title"><?= $page_title ?? 'Add Plan' ?></h3>
       </div>
            <?php echo form_open(route_to('admin.add_plan.post'), ['method' => 'post']); ?>
          <div class="card-body">
 
-                <?php 
-                $success = \Config\Services::session()->getFlashdata('plan_added');
-                if ($success) 
-                echo '<p class="text-success">Plan add successfully!</p>';
-                ?>
-
-                   <div class="form-group">
+                 <div class="form-group">
 <label>Select Product</label>
 <select name="product_name" class="form-control select2 " style="width: 100%;" aria-hidden="true">
 <option selected="selected" value ="3">Select Product</option>

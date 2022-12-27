@@ -38,11 +38,7 @@ $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email )
          
           
          
-           <a target="_blank" href="<?= base_url().route_to('user.add_fund') ?>" class="dropdown-item">
-            <i class="fas fa-circle nav-icon mr-2"></i>Add Fund
-          </a> <div class="dropdown-divider"></div>
-         
-           <a href="<?= base_url().route_to('user.logout') ?>" class="dropdown-item">
+           <a href="<?= base_url().route_to('admin.logout') ?>" class="dropdown-item">
             <i class="fas fa-circle nav-icon mr-2"></i>Logout
           </a>
           

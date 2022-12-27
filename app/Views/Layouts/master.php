@@ -86,7 +86,7 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; <?= date("Y") ?> <a href="<?= base_url() ?>"><?= SITENAME ?></a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.2.0
@@ -137,24 +137,27 @@
     }
   });
 });
+
   $(function() {
     var Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
       showConfirmButton: false,
-      timer: 5000
+      timer: 3000
     });
-
-     function successtoastr(str) {
-      toastr.success(str)
-    };
-     function errortoastr(str) {
-      toastr.error(str)
-    };
-     //errortoastr("No user found.<br/> Email: prashan29t@gmail.com");  
-
-    
   });
 </script>
-</body>
+<script>
+$(function(){
+    <?php if(session()->has("error")) { ?>
+       toastr.error('<?= session("error") ?>')
+    <?php } ?>
+});
+$(function(){
+    <?php if(session()->has("success")) { ?>
+       toastr.success('<?= session("success") ?>')
+    <?php } ?>
+});
+
+</script></body>
 </html>

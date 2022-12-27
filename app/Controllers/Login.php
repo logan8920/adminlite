@@ -52,16 +52,16 @@ class Login extends BaseController
             $res = $this->_userObj->where('email',$email)->where('password',$password)->first();
 
             if (! $res) 
-                return redirect()->route('admin.login')->with('invalid_pass',true);
+                return redirect()->route('admin.login')->with('error',"Invaild Username Password!");
 
             $status = ($res['status'] == 1) ? true : false;
 
             if ($status)
-                return redirect()->route('admin.login')->with('block',true);
+                return redirect()->route('admin.login')->with('error',"Account Block, Please Contact to Admin!");
 
             $this->_userObj->where('id',$res['id'])->set(['last_login' => date('Y-m-d h:i:s')])->update();
             $this->_session->set('user', ['login' => true, 'useremail' => $res['email'],'name' => $res['name'],'user_id' => $res['id']]);
-            return redirect()->route('home.dashboard');
+            return redirect()->route('home.dashboard')->with('success',"SignIn Successfully!");
 
 
         
