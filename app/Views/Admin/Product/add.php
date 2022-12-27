@@ -13,7 +13,7 @@
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
               <a href="
-                        <?= base_url() ?>">Home </a>
+                      <?= base_url(route_to('admin.dashboard')) ?>">Home </a>
             </li>
             <li class="breadcrumb-item active"> <?= $page_title ?? 'Page' ?> </li>
           </ol>
@@ -33,7 +33,7 @@
         <div class="col-lg-12">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Add Product</h3>
+              <h3 class="card-title"> <?= $page_title ?? 'Page' ?></h3>
             </div>
             <form>
               <div class="card-body">

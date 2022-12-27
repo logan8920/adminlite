@@ -33,7 +33,7 @@
         <div class="col-lg-12">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title"><?= $page_title ?? 'Edit' ?></h3>
+              <h3 class="card-title"><?= $page_title ?? 'Edit User' ?></h3>
             </div>
             <?= form_open(route_to($action), ['method' => 'post']) ?>
               <?= csrf_field() ?>
@@ -89,7 +89,7 @@
 
               </div>
               <div style="margin-top:-30px" class="card-footer">
-                <button type="submit" class="btn btn-primary"><span><i class="fas fa-edit"></i></span> Edit</button>
+                <button type="submit" class="btn btn-primary"><span><i class="fas fa-edit"></i></span> <?= $button ?? "EDIT" ?></button>
               </div>
             <?= form_close() ?>
           </div>

@@ -24,6 +24,19 @@ if (! function_exists('check_login')) {
 
  }
 
+ //retun how many acc is for sale in db
+ if(! function_exists('count_account_for_sale')) {
+   function count_account_for_sale($varient_id=''){
+   		$accObj = new AccountsModel();
+   		$available_acc =  $accObj->where('plan_varient_id',$varient_id ?? '')->where('status',0)->countAllResults() ?? '0';
+
+   		return $available_acc;
+   }
+
+ }
+
+
+
 
 //check logout function
 if (! function_exists('check_logout')) {
@@ -39,7 +52,7 @@ if (! function_exists('check_logout')) {
 if (! function_exists('check_admin_login')) {
 	function check_admin_login(){
 		$session = \Config\Services::session();
-		if (isset($session->admin['login_admin']) && $session->admin['login'] == true) {
+		if (isset($session->admin['login_admin']) && $session->admin['is_admin'] == true) {
 			page_redirect(route_to('admin.dashboard'));
 		}
 	}

@@ -14,7 +14,7 @@
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item">
               <a href="
-                        <?= base_url() ?>">Home </a>
+                     <?= base_url(route_to('admin.dashboard')) ?>">Home </a>
             </li>
             <li class="breadcrumb-item active"> <?= $page_title ?? 'Page' ?> </li>
           </ol>
@@ -34,24 +34,10 @@
         <div class="col-lg-12">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Add Account</h3>
+              <h3 class="card-title"><?= $page_title ?? 'Add Account' ?></h3>
             </div>
-               <?php 
-        $plan_empty = \Config\Services::session()->getFlashdata('plan_empty');
-        if ($plan_empty) 
-          echo '<p class="text-danger">Someting Went wrong!</p>';
-  
-     
-                $account_added = \Config\Services::session()->getFlashdata('account_added');
-                if ($account_added) 
-                echo '<p class="text-success">CVS Accounts Added successfully!</p>';
-
-
-                ?>
-
-   
-
-            <?php echo form_open(route_to('admin.add_account.post'), ['method' => 'post','enctype' => 'multipart/form-data']); ?>
+            
+           <?php echo form_open(route_to('admin.add_account.post'), ['method' => 'post','enctype' => 'multipart/form-data']); ?>
               <div class="card-body">
                 <div class="form-group">
                   <label>Select Productss</label>

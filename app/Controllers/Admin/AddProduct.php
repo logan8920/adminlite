@@ -10,7 +10,9 @@ class AddProduct extends BaseController
 {
     public $_session;
     public $_productObj;
+     public $_planObj; //chnegd 
     public $_db;
+    public $_accountObj;
     //load helper models session
     public function __construct(){
 
@@ -23,6 +25,42 @@ class AddProduct extends BaseController
         check_admin_logout();
 
     }
+
+            //delete accounts if admin want
+        public function account_delete($id='') {
+           echo "del not setup yet!"; die;
+                if (! is_numeric($id)) 
+                 return route_to('admin.account_delete',$id);
+
+            $del = $this->_accountObj->where('id', $id)->delete();
+            return redirect()->route('admin.account_delete',$id)->with('success',"user account deleted!");
+            
+         }
+
+
+            //plan account list to page
+    public function account_list($id='') {
+                if (! is_numeric($id)) 
+                 return route_to('admin.product_list');
+
+                $data['page_title'] = 'Accounts List';
+                $name_account  =$this->_planObj->where('id',$id)->first() ?? [];
+$data['plan_data'] = $name_account['product_name'].'('. $name_account['price'] .' PKR/'. $name_account['validity'].' Days)';
+ //SELECT * FROM products JOIN accounts ON products.name = accounts.product_name WHERE plan_varient_id
+                $db      = \Config\Database::connect();
+                $builder = $db->table('products as product');
+                $builder->select('*');
+                $builder->join('accounts as account', 'product.name = account.product_name');
+                $builder->where('account.plan_varient_id',$id);
+                $builder->where('account.status',0);
+                $query = $builder->get()->getResultArray();
+                $data['all_accounts'] = $query;
+            
+         
+            return view('Admin/Product/account_list',$data);
+    }
+
+    
 
         //add account todb
     public function add_account() {
@@ -91,13 +129,14 @@ $res =$this->_db->simpleQuery($query);
            
            
             if ($res) {
-                return redirect()->route('admin.add_account')->with('account_added',true);
+                return redirect()->route('admin.add_account')->with('success',"Account added successfully!");
             }else{
-                return redirect()->route('admin.add_account')->with('plan_empty',true);
+                return redirect()->route('admin.add_account')->with('error',"Failed, please try again!!");
             }
         }
 
         }
+
 
 
 
@@ -123,7 +162,7 @@ $res =$this->_db->simpleQuery($query);
 
 //show add plan page page
     public function add_plan() {
-            $data['page_title'] = 'product List';
+            $data['page_title'] = 'Add New Plan';
             $data['product_list'] = $this->_productObj->findAll() ?? [];
 
         if ($this->request->getMethod() == 'post') {
@@ -158,9 +197,9 @@ $res =$this->_db->simpleQuery($query);
             $res = $this->_planObj->set($_POST)->insert();
            
             if ($res) {
-                return redirect()->route('admin.add_plan')->with('plan_added',true);
+                return redirect()->route('admin.add_plan')->with('success',"Plan added successfully!");
             }else{
-                return redirect()->route('admin.add_plan')->with('error',true);
+                return redirect()->route('admin.add_plan')->with('error',"Failed, please try again!");
             }
         }
         
@@ -171,12 +210,12 @@ $res =$this->_db->simpleQuery($query);
 
     //load login page
     public function add_product() {
-
+         $data['page_title'] = 'Add New Product';
 
         if ($this->request->getMethod() == 'post') {
             return $this->save_prodcut();
         }
-        return view('Admin/add_product');
+        return view('Admin/add_product',$data);
     }
 
     //save product name to db
@@ -208,9 +247,9 @@ $res =$this->_db->simpleQuery($query);
 
                   $this->_session->set('user', ['product_added' => true]);
 
-                return redirect()->route('admin.add_product')->with('product_added',true);
+                return redirect()->route('admin.add_product')->with('success',"Product added successfully!");
             }else{
-                return redirect()->route('admin.add_product')->with('error',true);
+                return redirect()->route('admin.add_product')->with('error',"Failed, please try again!");
             }
         }
         

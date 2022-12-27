@@ -4,10 +4,10 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class AccountsModel extends Model
+class ContactModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'accounts';
+    protected $table            = 'contact';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
@@ -16,17 +16,9 @@ class AccountsModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
 
-                                    'id',
-                                    'user_id',
-                                    'product_id',
-                                    'product_name',
-                                    'validity',
-                                    'price',
-                                    'email',
-                                    'password',
-                                    'used_date',
-                                    'status'
-
+                                    'fb',
+                                    'whatsapp'
+                                    
                                  ];
 
     // Dates

@@ -10,18 +10,6 @@
       </div>
       <div class="card-body">
          <p class="login-box-msg">Welcome to Admin Login</p>
-         <?php 
-	  		$invalid_pass = \Config\Services::session()->getFlashdata('invalid_pass');
-	  		if ($invalid_pass) 
-	  			echo '<p class="text-danger">Please enter valid username and password</p>';
-
-        
-	  	   $error = \Config\Services::session()->getFlashdata('error');
-         if ($error) 
-            echo '<p class="text-danger">Something Went wrong. Please Contact to the developer.</p>'     
-      
-
-	  	?>
         <?php echo form_open(route_to('admin.log.post'), ['method' => 'post']); ?>
 				<?php echo csrf_field() ?>
             <div class="input-group mb-3">

@@ -57,7 +57,7 @@ class User extends BaseController
     {
         $data['action'] = '"user.list.add.post"';
         $data['page_title'] = 'Add User';
-       
+        $data['button'] = 'ADD USER';
         if ($this->request->getMethod() == 'post')
             return $this->store();
 
@@ -102,9 +102,9 @@ class User extends BaseController
             if ($res) {
  
                 $this->_balanceObj->insert(['amount' => 0, 'user_id' => $this->_userObj->insertID() ?? 0,'updated_at' => date('Y-m-d H:i:s')]);
-                return redirect()->route('user.list')->with('success',true);
+                return redirect()->route('user.list')->with('success',"User Added Successfully!");
             }else{
-                return redirect()->route('user.list')->with('error',true);
+                return redirect()->route('user.list')->with('error',"Please try again!");
             }
         }
 
@@ -163,9 +163,9 @@ class User extends BaseController
             // echo $this->_userObj->getLastQuery()->getQuery(); die;
 
             if ($res) {
-                return redirect()->route('user.list')->with('update',true);
+                return redirect()->route('user.list')->with('success',"user update Successfully");
             }else{
-                return redirect()->route('user.list')->with('error',true);
+                return redirect()->route('user.list')->with('error',"Please try again!");
             }
         }
 
