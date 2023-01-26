@@ -160,5 +160,18 @@ $(function(){
 });
 
 </script>
+
+ <script type="text/javascript">
+    var url="<?=current_url()?>";
+    function deletep(id){
+  
+       var r=confirm("Do you want to delete this?")
+        if (r==true)
+          window.location = url+"/delete/"+id;
+        else
+          return false;
+        }
+    
+</script>
 </body>
 </html>

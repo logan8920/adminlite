@@ -63,8 +63,22 @@
                            <td>1</td>
 
                             <td>
-                             <a  title="BUY NOW" href="<?= base_url().route_to('user.purchase',$value['id']) ?>" class="btn btn-success">BUY NOW</a>
+                             <a  title="BUY NOW" href="<?= base_url().route_to('user.purchase',$value['id']) ?>" class="btn btn-success alink">BUY NOW</a>
                            </td>
+                           
+                           
+                           </tr>
+                           <tr>
+                           
+                          
+                            <td> 
+                              <div class="form-group">
+                                <input type="text" name="coupon_code" class="form-control mt-3" placeholder="Enter Coupon Code">
+                              </div>
+                            </td>
+                            <td>
+                              <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                            </td>
                            
                            
                            </tr>
@@ -97,3 +111,34 @@
 </div>
 
   <?= $this->endSection() ?>
+
+  <?=$this->section('js')?>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('[name=submit]').on('click',function() {
+        var code = $('[name=coupon_code]').val();
+        var productId = '<?=$account_info[0]['plan_varient_id']?>';
+        if(code != ''){
+          $.ajax({
+              url: '<?=base_url(route_to('coupon.validate'))?>',
+              type: 'post',
+              data: {coupon:code,product:productId},
+              dataType: 'json',
+              success:function(result){
+                if(result['success']){
+                  $('[name=submit]').html('Applied!').addClass("btn btn-success").attr('disabled','disabled');
+                  var aa = $('.alink').attr('href');
+                  var ac = aa+'?code='+code;
+                  $('.alink').attr('href',ac);
+                }else{
+                  $('[name=submit]').html('Invalid!');
+                }
+              }
+          });
+        }else{
+          alert('Please Enter the Coupon Code.');
+        }
+      });
+    });
+  </script>
+  <?=$this->endSection()?>
