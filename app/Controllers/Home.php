@@ -6,12 +6,15 @@ use App\Models\ProductaddModel;
 use App\Models\BalanceModel;
 use App\Models\UserModel;
 use App\Models\ContactModel;
+use App\Models\CouponModel;
+use App\Models\TransactionModel;
 class Home extends BaseController
 {
 
     public $_accountsObj;
     public $_session;
     public $_db;
+    public $uri;
     //load site helper session
     public function __construct(){
 
@@ -22,8 +25,11 @@ class Home extends BaseController
         $this->_productObj = new ProductaddModel();
         $this->_userObj  = new UserModel();
         $this->_balanceObj = new BalanceModel();
+        $this->_couponObj  = new CouponModel();
+        $this->_transactionObj = new TransactionModel();
         $this->_db         = \Config\Database::connect();
         $this->_session = session();
+        $this->uri = new \CodeIgniter\HTTP\URI(current_url(true));
         check_logout();
     }
 
@@ -135,8 +141,8 @@ $this->_session->destroy();
                
                 $query =  $builder->limit(1)->get()->getResultArray();
                 $data['account_info'] = $query;
-
-
+                //$data['uri'] = $this->uri;
+                // print_r($data); die;
          //$account_info  =$this->_accountsObj->where('id',$id)->where('status',0)->first() ?? [];
         // $data['account_info'] = $account_info;
         return view('buy_accounts',$data);
@@ -155,38 +161,93 @@ $this->_session->destroy();
     }
 
     
-     //assign account to user purchase done
+    //assign account to user purchase done
     public function purchase($id='')
-    {   if (! is_numeric($id)){
-        return route_to('account.buy.list');
-          } else {
-           //get user balance
-             $user_id = $this->_session->user['user_id'];
-             $user_balance =  $this->_balanceObj->where('user_id',$user_id)->first()['amount'];
-             //get product plan price
-              $acc_price=  $this->_accountsObj->where('id',$id)->first()['price'];
-              //check balance is grater then acc price or equal
-              if($user_balance  >= $acc_price){
-//UPDATE `accounts` SET `user_id` = '6' WHERE `id` = '2'
+    {   
+        if (! is_numeric($id)):
+            return route_to('account.buy.list');
+
+        else :
+            //coupon discount 
+            $countDiscount = 0;
+            if (isset($_GET['code'])) {
+                $countDiscount = $this->_couponObj
+                  ->where(['coupon_code' => $_GET['code']])
+                  ->where('used <= used_limit')
+                  ->first()['discount'] ?? 0;
+            }
+
+            //get user balance
+            $user_id = $this->_session
+                ->user['user_id'];
+
+            $user_balance =  $this->_balanceObj
+                ->where('user_id',$user_id)
+                ->first()['amount'];
+
+            //get product plan price
+            $acc_prices =  $this->_accountsObj
+                ->where('id',$id)
+                ->first();
+
+            //dicounted 
+            $acc_price = ($countDiscount != 0) ? $acc_prices['price'] - $countDiscount : $acc_prices['price'];
+
+            //check balance is grater then acc price or equal
+            if($user_balance  >= $acc_price){
+
                 $data1 = [
-    'status' => '1',
-    'used_date'    => date('Y-m-d H:i:s'),
-    'user_id'    => $user_id
-];
-     $res = $this->_accountsObj->where('id',$id)->set($data1)->update();
- 
-                        if ($res) {
-                        $updated_bal = $user_balance  - $acc_price;
-       $updated_query = $this->_balanceObj->where('user_id',$user_id)->set(['amount' => $updated_bal,'updated_at' => date('Y-m-d H:i:s')])->update();    
-        return redirect()->route('home.dashboard')->with('success',"Transaction Successfully!");
-                   
-                        }else{
-                        echo "error api";        
-                        }
-                        } else{
-                      return redirect()->route('home.dashboard')->with('error',"Balance is Low, Please Topup!");
-                        }
-          }
+                            'status' => '1',
+                            'used_date' => date('Y-m-d H:i:s'),
+                            'user_id' => $user_id
+                        ];
+
+                $res = $this->_accountsObj
+                    ->where('id',$id)
+                    ->set($data1)
+                    ->update();
+     
+                if ($res) {
+
+                    $updated_bal = $user_balance  - $acc_price;
+                    $updated_query = $this->_balanceObj
+                        ->where('user_id',$user_id)
+                        ->set(['amount' => $updated_bal,'updated_at' => date('Y-m-d H:i:s')])
+                        ->update();
+
+                     $trasactionLog = [
+                                        'product_name' => $acc_prices['product_name'],
+                                        'product_price' => $acc_prices['price'],
+                                        'order_date_time' => date('Y-m-d H:i:s'),
+                                        'status' => 'success',
+                                        'user_id' => $this->_session->user['user_id']
+                                     ];
+
+                    if (isset($_GET['code'])){
+                        $this->_couponObj->where('coupon_code',$_GET['code'])->increment('used',1);
+                        $trasactionLog['coupon_code'] = $_GET['code'];
+                        $trasactionLog['discount'] = $countDiscount;
+                    }
+
+                    $this->_transactionObj
+                         ->insert($trasactionLog);
+
+                    return redirect()
+                            ->route('home.dashboard')
+                            ->with('success',"Transaction Successfully!");
+                       
+                }else{
+
+                    echo "error api";        
+                }
+
+            } else{
+            return redirect()
+                    ->route('user.add_fund')
+                    ->with('error',"Balance is Low, Please Topup!");
+            }
+
+        endif;
        
     }
        
@@ -226,6 +287,28 @@ $this->_session->destroy();
             }
         }
         
+    }
+
+     //validate coupon 
+    public function CouponValidate()
+    {
+        if ($this->request->getMethod() == 'post') :
+
+            $couponCodechecking = $this->_couponObj
+                ->where(['coupon_code' => $_POST['coupon'],'product_code' => $_POST['product']])
+                ->where('used <= used_limit')
+                ->get()
+                ->getNumRows();
+            echo $this->_couponObj->getLastQuery()->getQuery();die;
+            if ($couponCodechecking > 0) {
+                echo json_encode(['success' => true,'error' =>'']);
+            }else{
+                echo json_encode(['success' => '','error' => true]);  
+            }
+
+            // echo '{"row":"'.$couponCodechecking.'"}';
+
+        endif;
     }
 
 

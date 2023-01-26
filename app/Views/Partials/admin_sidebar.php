@@ -89,6 +89,15 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="<?= base_url().route_to('coupon.list') ?>" class="nav-link">
+              <i class="nav-icon fas fa-sun"></i>
+              <p>
+                Coupon
+               
+              </p>
+            </a>
+          </li>
 
 
           <li class="nav-item">

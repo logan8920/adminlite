@@ -49,6 +49,8 @@ $routes->get('purchase/(:any)', 'Home::purchase/$1',['as' => 'user.purchase']);
 $routes->get('add_fund', 'Home::add_fund',['as' => 'user.add_fund']);
 $routes->get('demo', 'Home::demo');
 
+//ajax coupon validator
+$routes->post('coupon/validator', 'Home::CouponValidate', ['as' => 'coupon.validate']);
 
 //admin routes
 $routes->group('/admin', ['namespace' => 'App\Controllers\Admin'], function($routes)
@@ -85,6 +87,16 @@ $routes->post('add_account', 'AddProduct::add_account',['as' => 'admin.add_accou
         //Balance Route
         $routes->get('add-balance', 'Balance::index', ['as' => 'add.balance']);
         $routes->post('add-balance', 'Balance::index', ['as' => 'add.balance.post']);
+
+        //Coupon Routes
+        $routes->get('coupon/list','Coupon::index', ['as' => 'coupon.list']);
+        $routes->get('coupon/add', 'Coupon::add', ['as' => 'coupon.add']);
+        $routes->post('coupon/add', 'Coupon::add', ['as' => 'coupon.add.store']);
+        $routes->get('coupon/edit/(:any)', 'Coupon::edit/$1', ['as' => 'coupon.edit']);
+        $routes->post('coupon/edit/(:any)', 'Coupon::edit/$1', ['as' => 'coupon.edit.update']);
+        $routes->get('coupon/list/delete/(:any)', 'Coupon::delete/$1', ['as' => 'coupon.delete']);
+
+
 
 
     }
