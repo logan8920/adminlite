@@ -98,11 +98,10 @@
 
 <!-- REQUIRED SCRIPTS -->
 
-<!-- custom js -->
-<?= $this->renderSection('js') ?>
-
 <!-- jQuery -->
 <script src="<?= base_url() ?>/assets/plugins/jquery/jquery.min.js"></script>
+<!-- custom js -->
+<?= $this->renderSection('js') ?>
 <!-- SweetAlert2 -->
 <script src="<?= base_url() ?>/assets/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
