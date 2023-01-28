@@ -61,6 +61,15 @@ $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email )
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="<?= base_url().route_to('user.add_fund') ?>" class="nav-link">
+               <i class="nav-icon fas fa-money-bill"></i>
+              <p>
+                Add Balance
+               
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

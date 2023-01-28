@@ -41,7 +41,7 @@ defined('WEEK')   || define('WEEK', 604800);
 defined('MONTH')  || define('MONTH', 2_592_000);
 defined('YEAR')   || define('YEAR', 31_536_000);
 defined('DECADE') || define('DECADE', 315_360_000);
-
+define('URL','http://'.$_SERVER['HTTP_HOST']."/adminlite/");
 
 // manual defined constant
 
@@ -52,6 +52,14 @@ define('moz', 'https://www.logolynx.com/images/logolynx/5e/5e1c0d0aec0f5af51d32e
 define('suferseo', 'https://assets-global.website-files.com/615b6910fed3ab29278f1893/624bec3871f5476459d943fb_keyword-surfer-logo.png');
 define('add_fund_url', 'http://wa.me/+923094432002?text=hay%20i%20want%20add%20fund%20in%20my%20account');
 
+// PayPal configuration 
+define('PAYPAL_ID', 'sb-43gpqe22345351@business.example.com'); 
+define('PAYPAL_SANDBOX', TRUE); //TRUE or FALSE  
+define('PAYPAL_RETURN_URL', URL.'paypaltask/response'); 
+define('PAYPAL_CANCEL_URL', URL.'paypaltask/cancel'); 
+
+// Change not required 
+define('PAYPAL_URL', (PAYPAL_SANDBOX == true)?"https://www.sandbox.paypal.com/cgi-bin/webscr":"https://www.paypal.com/cgi-bin/webscr");
 
 //++++++++++++++++++++++++++++++++++
 /*

@@ -90,6 +90,16 @@
           </li>
 
           <li class="nav-item">
+            <a href="<?= base_url().route_to('transaction.list') ?>" class="nav-link">
+              <i class="nav-icon fas fa-money-bill"></i>
+              <p>
+                Transaction List
+               
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a href="<?= base_url().route_to('coupon.list') ?>" class="nav-link">
               <i class="nav-icon fas fa-sun"></i>
               <p>

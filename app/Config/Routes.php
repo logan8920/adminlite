@@ -48,6 +48,9 @@ $routes->get('buy_accounts/(:any)', 'Home::buy_accounts/$1',['as' => 'user.buy.a
 $routes->get('purchase/(:any)', 'Home::purchase/$1',['as' => 'user.purchase']);
 $routes->get('add_fund', 'Home::add_fund',['as' => 'user.add_fund']);
 $routes->get('demo', 'Home::demo');
+$routes->get('paypal','Paypal::index', ['as' => 'paypal']);
+$routes->post('paypaltask/response', 'Paypal::response', ['as' => 'paypal.response']);
+$routes->get('paypaltask/cancel', 'Paypal::cancel', ['as' => 'paypal.cancel']);
 
 //ajax coupon validator
 $routes->post('coupon/validator', 'Home::CouponValidate', ['as' => 'coupon.validate']);
@@ -95,6 +98,9 @@ $routes->post('add_account', 'AddProduct::add_account',['as' => 'admin.add_accou
         $routes->get('coupon/edit/(:any)', 'Coupon::edit/$1', ['as' => 'coupon.edit']);
         $routes->post('coupon/edit/(:any)', 'Coupon::edit/$1', ['as' => 'coupon.edit.update']);
         $routes->get('coupon/list/delete/(:any)', 'Coupon::delete/$1', ['as' => 'coupon.delete']);
+
+        //transction list
+        $routes->get('transaction/list', 'Transaction::index',['as' => 'transaction.list']);
 
 
 
