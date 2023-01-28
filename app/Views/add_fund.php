@@ -22,17 +22,31 @@
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-       <div class="row">
-   
-    
-    
-  </div>
-  <div class="h4 text-center">Send your Email or Payment Screenshot to Admin in WhatsApp</div>
+       <div class="row card p-5 m-2">
+        <div class="col-sm-12">
+          <div class="h4 text-center">Send your Email or Payment Screenshot to Admin in WhatsApp</div>
+          
+        </div>
+        <div class="col-sm-12">
+          <div class="text-center">
+          <a class="btn btn-success" href="https://wa.me/<?= $contact_data ?>?text=hay i want add fund in my account this is my Email Address <?= $emailaddress ?> Website-<?= base_url() ?>">SEND MSG TO WHATSAPP</a>
+          </div>
+        </div>
 
-  <div class="text-center">
-    <a class="btn btn-success" href="https://wa.me/<?= $contact_data ?>?text=hay i want add fund in my account this is my Email Address <?= $emailaddress ?> Website-<?= base_url() ?>">SEND MSG TO WHATSAPP</a>
-
-</div>
+        <div class="col-sm-12">
+          <h3 class="text-center m-3 p-3"><span class="badge badge-danger">OR</span></h3>
+        </div>
+        <div class="col-sm-12">
+          <div class="h4 text-center">Pay With PayPal</div>
+        </div>
+        <div class="col-sm-12">
+          <div class="text-center">
+          <a class="btn btn-primary" href="<?= base_url(route_to('paypal')) ?>">PayPal</a>
+          </div>
+        </div>
+          
+       </div>
+  
         <!-- /.row -->
       </div>
       <!-- /.container-fluid -->

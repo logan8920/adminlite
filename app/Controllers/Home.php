@@ -242,6 +242,18 @@ $this->_session->destroy();
                 }
 
             } else{
+
+                $trasactionLog = [
+                                    'product_name' => $acc_prices['product_name'],
+                                    'product_price' => $acc_prices['price'],
+                                    'order_date_time' => date('Y-m-d H:i:s'),
+                                    'status' => 'failed ',
+                                    'user_id' => $this->_session->user['user_id']
+                                 ];
+
+                $this->_transactionObj
+                         ->insert($trasactionLog);
+                         
             return redirect()
                     ->route('user.add_fund')
                     ->with('error',"Balance is Low, Please Topup!");

@@ -1,7 +1,7 @@
 <?php  
 
 use App\Models\AccountsModel;
-
+use App\Models\UserModel;
 
 //check login function
 if (! function_exists('check_login')) {
@@ -35,7 +35,14 @@ if (! function_exists('check_login')) {
 
  }
 
-
+//get user name
+if (! function_exists('get_user_name')) {
+		function get_user_name($value='')
+		{
+			return $userObj
+						 ->where('')
+		}
+}
 
 
 //check logout function
